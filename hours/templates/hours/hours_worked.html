@@ -7,7 +7,7 @@
 {% endblock title %}
 
 {% block content %}
-  <div class="card border-success">
+  <div class="card border-primary">
     <div class="card-header pt-4">
       <a href="{% url 'hours:home' %}" class="btn btn-secondary">Home</a>
     </div>
@@ -15,13 +15,13 @@
     <div class="card-body mb-2 pt-4">
       <form action="{% url 'hours:hours_worked' %}" method="post">
         {% csrf_token %}
-        {% form|crispy %}
+        {{ form|crispy }}
         <br>
-        <button class="btn btn-light" name="submit">Add</button>
+        <button class="btn btn-success" type="submit">Add</button>
       </form>
 
     </div>
   </div>
 
 
-{% endblock content %
+{% endblock content %}

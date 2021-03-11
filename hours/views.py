@@ -21,4 +21,4 @@ def hours_worked(request):
             return redirect('hours:home')
 
     context = {'form': form}
-    return render('hours/hours_worked.html', context)
+    return render(request,'hours/hours_worked.html', context)

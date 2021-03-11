@@ -1,0 +1,23 @@
+body {
+  background-color: #9697AD;
+}
+
+#div_id_title {
+  padding-bottom: 1rem;
+}
+
+#div_id_status {
+  padding-bottom: 1rem;
+}
+
+#div_id_code_language {
+  padding-bottom: 1rem;
+}
+
+#div_id_hours_worked_in_day {
+  padding-bottom: 1rem;
+}
+
+.asteriskField {
+  display: none;
+}
