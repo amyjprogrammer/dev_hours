@@ -1,43 +1,43 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
-from .models import HoursWorked
-from .forms import HoursWorkedForm
+from .models import ProjectWorked, TrackingHours
+from .forms import ProjectWorkedForm, TrackingHoursForm
 
 """Home view"""
 def home(request):
-    hours = HoursWorked.objects.all().order_by('-date_added')
-    context= {'hours': hours}
+    project = ProjectWorked.objects.all()
+    context= {'project': project}
     return render(request, 'hours/home.html', context)
 
-def hours_worked(request):
+def project_worked(request):
     """adding a form"""
     if request.method != "POST":
         #blank form
-        form = HoursWorkedForm()
+        form = ProjectWorkedForm()
     else:
-        form = HoursWorkedForm(request.POST)
+        form = ProjectWorkedForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('hours:home')
 
     context = {'form': form}
-    return render(request,'hours/hours_worked.html', context)
+    return render(request,'hours/project_worked.html', context)
 
-def updating_hours_worked(request, hours_id):
-    hours = get_object_or_404(HoursWorked, id=hours_id)
+def updating_project_worked(request, project_id):
+    project = get_object_or_404(ProjectWorked, id=project_id)
     if request.method != "POST":
         #show hours_worked info
-        form = HoursWorkedForm(instance=hours)
+        form = ProjectWorkedForm(instance=project)
 
     else:
         #updating info
-        form = HoursWorkedForm(request.POST, instance=hours)
+        form = ProjectWorkedForm(request.POST, instance=project)
 
         if form.is_valid():
             form.save()
             messages.success(request, f'You have updated the information.')
             return redirect('hours:home')
 
-    context = {'hours': hours, 'form': form}
-    return render(request, 'hours/updating_hours_worked.html', context)
+    context = {'project': project, 'form': form}
+    return render(request, 'hours/updating_project_worked.html', context)

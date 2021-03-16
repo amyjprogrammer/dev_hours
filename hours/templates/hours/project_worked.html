@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  Updating
+  Add project
 {% endblock title %}
 
 {% block content %}
@@ -11,14 +11,15 @@
     <div class="card-header pt-4">
       <a href="{% url 'hours:home' %}" class="btn btn-secondary">Home</a>
     </div>
+
     <div class="card-body mb-2 pt-4">
-      <form action="{% url 'hours:updating_hours_worked' hours.id %}" method="post">
+      <form action="{% url 'hours:project_worked' %}" method="post">
         {% csrf_token %}
         {{ form|crispy }}
         <br>
-        <button class="btn btn-primary" type="submit">Update</button>
-
+        <button class="btn btn-success" type="submit">Add Project</button>
       </form>
+
     </div>
   </div>
 

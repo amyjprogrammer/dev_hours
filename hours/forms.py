@@ -1,8 +1,13 @@
 from django import forms
 
-from .models import HoursWorked
+from .models import ProjectWorked, TrackingHours
 
-class HoursWorkedForm(forms.ModelForm):
+class ProjectWorkedForm(forms.ModelForm):
     class Meta:
-        model = HoursWorked
+        model = ProjectWorked
         fields = '__all__'
+
+class TrackingHoursForm(forms.ModelForm):
+    class Meta:
+        model = TrackingHours
+        fields = ['hours_worked_in_day', 'date_added']

@@ -6,6 +6,6 @@ app_name = 'hours'
 
 urlpatterns = [
     path('', views.home, name='home',),
-    path('hours-worked/', views.hours_worked, name='hours_worked',),
-    path('updating-hours-worked/<int:hours_id>/', views.updating_hours_worked, name='updating_hours_worked',),
+    path('project-worked/', views.project_worked, name='project_worked',),
+    path('updating-project-worked/<int:project_id>/', views.updating_project_worked, name='updating_project_worked',),
 ]
