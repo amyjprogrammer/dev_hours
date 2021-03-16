@@ -6,8 +6,9 @@ from .forms import ProjectWorkedForm, TrackingHoursForm
 
 """Home view"""
 def home(request):
-    project = ProjectWorked.objects.all()
-    context= {'project': project}
+    projects = ProjectWorked.objects.all()
+    hours = TrackingHours.objects.all()
+    context= {'projects': projects, 'hours': hours}
     return render(request, 'hours/home.html', context)
 
 def project_worked(request):

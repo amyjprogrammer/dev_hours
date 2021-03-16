@@ -7,13 +7,31 @@
 {% endblock title %}
 
 {% block content %}
-{% if hours %}
-  <div class="card mb-4">
-    <div class="card-header">
+{% if projects %}
+  {% for project in projects %}
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        {{ project.title }}
+      </div>
+      <div class="card-body">
+        {{ project.status }}
+        {{ project.code_language }}
+        <div class="table-responsive">
 
-
+        </div>
+      </div>
     </div>
+  {% endfor %}
+{% else %}
 
+<div class="card border-primary">
+  <div class="card-body pt-4">
+    <h2>No projects added yet</h2>
+    <br>
+    <a href="{% url 'hours:project_worked' %}" class="btn btn-success">Add Project</a>
   </div>
+</div>
+
 {% endif %}
 {% endblock content %}
