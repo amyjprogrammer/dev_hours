@@ -18,5 +18,8 @@ class HoursWorked(models.Model):
     hours_worked_in_day = models.IntegerField(default=1)
     date_added = models.DateField(help_text = 'Please use the following format: <em>YYYY-MM-DD</em>')
 
+    class Meta:
+        verbose_name_plural = "hours worked"
+
     def __str__(self):
         return self.title
