@@ -14,15 +14,45 @@
         <i class="fas fa-table mr-1"></i>
         {{ project.title }}
         <br>
-        {{ project.status }}
-        {{ project.code_language }}
+        Status: {{ project.status }}
+        Language: {{ project.code_language }}
       </div>
+
       <div class="card-body">
-
         <div class="table-responsive">
-
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Hours Worked</th>
+              <th>Edit Info</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for hour in project.trackinghours_set.all %}
+              <tr>
+                <td>{{ hour.date_added }}</td>
+                <td>{{ hour.hours_worked_in_day }}</td>
+                <td>
+                  <form action="{% url 'hours:edit_trackinghours' hour.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary-sm">Edit</button>
+                  </form>
+                </td>
+                <td>
+                  <form action="{% url 'hours:delete_trackinghours' hour.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
         </div>
       </div>
+
     </div>
   {% endfor %}
 {% else %}

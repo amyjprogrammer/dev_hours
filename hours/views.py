@@ -7,7 +7,6 @@ from .forms import ProjectWorkedForm, TrackingHoursForm
 """Home view"""
 def home(request):
     projects = ProjectWorked.objects.all()
-    hours = TrackingHours.objects.all()
 
     if request.method != "POST":
         #show hours worked form
@@ -19,7 +18,7 @@ def home(request):
             form.save()
             return redirect('/')
 
-    context= {'projects': projects, 'hours': hours, 'form': form}
+    context= {'projects': projects, 'form': form}
     return render(request, 'hours/home.html', context)
 
 def project_worked(request):
