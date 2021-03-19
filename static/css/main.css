@@ -21,3 +21,7 @@ body {
 .asteriskField {
   display: none;
 }
+
+.card-header {
+  background-color: #C3D3FC;
+}

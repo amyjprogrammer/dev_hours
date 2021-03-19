@@ -8,17 +8,7 @@ from .forms import ProjectWorkedForm, TrackingHoursForm
 def home(request):
     projects = ProjectWorked.objects.all()
 
-    if request.method != "POST":
-        #show hours worked form
-        form = TrackingHoursForm()
-
-    else:
-        form = TrackingHoursForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-
-    context= {'projects': projects, 'form': form}
+    context= {'projects': projects}
     return render(request, 'hours/home.html', context)
 
 def project_worked(request):
@@ -67,6 +57,10 @@ def edit_trackinghours(request, hours_id):
             form.save()
             return redirect('hours:home')
 
+    context = {'hours': hours, 'form': form}
+    return render(request, 'hours/edit_trackinghours.html', context)
+
+
 def delete_trackinghours(request, hours_id):
     hours = get_object_or_404(TrackingHours, id=hours_id)
 
@@ -74,3 +68,22 @@ def delete_trackinghours(request, hours_id):
         hours.delete()
         context={'hours':hours}
         return redirect('hours:home')
+
+
+def add_trackinghours(request, project_id):
+    project = get_object_or_404(ProjectWorked, id=project_id)
+
+    if request.method != "POST":
+        #show hours worked form
+        form = TrackingHoursForm()
+
+    else:
+        form = TrackingHoursForm(data=request.POST)
+        if form.is_valid():
+            add_hours = form.save(commit=False)
+            add_hours.hours = project
+            add_hours.save()
+            return redirect('hours:home')
+
+    context={'form': form, 'project': project}
+    return render(request, 'hours/add_trackinghours.html', context)

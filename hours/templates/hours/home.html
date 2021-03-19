@@ -9,17 +9,26 @@
 {% block content %}
 {% if projects %}
   {% for project in projects %}
-    <div class="card mb-4">
-      <div class="card-header">
-        <i class="fas fa-table mr-1"></i>
-        {{ project.title }}
-        <br>
-        Status: {{ project.status }}
-        Language: {{ project.code_language }}
+    <div class="card border-dark mb-4">
+      <div class="card-header p-2 ">
+        <div class="row">
+          <div class="col-md-3">
+            Title: {{ project.title }}
+          </div>
+          <div class="col-md-3">
+            Status: {{ project.status }}
+          </div>
+          <div class="col-md-3">
+            Language: {{ project.code_language }}
+          </div>
+          <div class="col-md-3">
+            <a href="{% url 'hours:updating_project_worked' project.id %}" class="btn btn-success">Edit Project</a>
+          </div>
+        </div>
       </div>
 
       <div class="card-body">
-        <div class="table-responsive">
+        <table class="table">
           <thead>
             <tr>
               <th>Date</th>
@@ -28,33 +37,41 @@
               <th>Delete</th>
             </tr>
           </thead>
+          <tfoot>
+            <tr>
+              <th>Total Hours Worked</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </tfoot>
           <tbody>
             {% for hour in project.trackinghours_set.all %}
               <tr>
                 <td>{{ hour.date_added }}</td>
                 <td>{{ hour.hours_worked_in_day }}</td>
                 <td>
-                  <form action="{% url 'hours:edit_trackinghours' hour.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary-sm">Edit</button>
-                  </form>
+                  <a href="{% url 'hours:edit_trackinghours' hour.id %}" class="btn btn-primary">Edit</a>
                 </td>
                 <td>
                   <form action="{% url 'hours:delete_trackinghours' hour.id %}" method="post">
                     {% csrf_token %}
-                    <button type="submit" class="btn">
-                      <i class="fas fa-trash-alt"></i>
+                    <button type="submit" class="btn-sm btn-danger">Delete
                     </button>
                   </form>
                 </td>
               </tr>
             {% endfor %}
           </tbody>
-        </div>
+
+        </table>
+        <br>
+        <a href="{% url 'hours:add_trackinghours' project.id %}" class="btn btn-success">Add hours</a>
       </div>
 
     </div>
   {% endfor %}
+
 {% else %}
 
 <div class="card border-primary">
