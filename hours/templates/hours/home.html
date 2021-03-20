@@ -23,6 +23,7 @@
           </div>
           <div class="col-md-3">
             <a href="{% url 'hours:updating_project_worked' project.id %}" class="btn btn-success">Edit Project</a>
+            <a href="{% url 'hours:project_worked' %}" class="btn btn-primary">Add Project</a>
           </div>
         </div>
       </div>
@@ -40,7 +41,7 @@
           <tfoot>
             <tr>
               <th>Total Hours Worked</th>
-              <th></th>
+              <th>{{ hours }}</th>
               <th></th>
               <th></th>
             </tr>

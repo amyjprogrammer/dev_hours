@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.db.models import Sum
 
 from .models import ProjectWorked, TrackingHours
 from .forms import ProjectWorkedForm, TrackingHoursForm
@@ -7,8 +8,9 @@ from .forms import ProjectWorkedForm, TrackingHoursForm
 """Home view"""
 def home(request):
     projects = ProjectWorked.objects.all()
-
-    context= {'projects': projects}
+    hours= TrackingHours.objects.aggregate(hour=Sum('hours_worked_in_day'))
+    hours = hours.get('hour')
+    context= {'projects': projects, 'hours': hours}
     return render(request, 'hours/home.html', context)
 
 def project_worked(request):
